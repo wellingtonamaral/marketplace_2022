@@ -32,6 +32,10 @@ class UsersTableSeeder extends Seeder
         //         ->has(\App\Models\Store::factory()->count(2))
         //         ->create();
 
-        \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create()->each(function($user){
+
+            $user->store()->save(\App\Models\Store::factory()->make());
+
+        });
     }
 }

@@ -11,10 +11,16 @@ class StoreFactory extends Factory
      *
      * @return array
      */
+
     public function definition()
     {
         return [
-            //
-        ];
+            'name' => $this->faker->name,
+            'description' => $this->faker->sentence,
+            'phone' => $this->faker->phonenumber,
+            'mobile_phone' => $this->faker->phonenumber,
+            'slug' => $this->faker->slug
+
+          ];
+        }
     }
-}

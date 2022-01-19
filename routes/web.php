@@ -93,8 +93,22 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Route::get
 //Route::get('/admin/stores','Admin\\StoreController@index'); /* Laravel 6 */
-Route::get('/admin/stores','\\App\\Http\\Controllers\\Admin\\StoreController@index'); /* Laravel 8 */
 //[\App\Http\Controllers\Admin\StoreController::class, 'index']
+
+
+Route::prefix('admin')->namespace('App\\Http\\Controllers\\Admin')->group(function(){
+
+    Route::prefix('stores')->group(function(){
+
+        Route::get('/','StoreController@index')->name('admin.stores.index'); /* Laravel 8 */
+        Route::get('/create','StoreController@create')->name('admin.stores.create'); /* Laravel 8 */
+        Route::post('/store','StoreController@store')->name('admin.stores.store'); /* Laravel 8 */
+        Route::get('/{store}/edit','StoreController@edit')->name('admin.stores.edit'); /* Laravel 8 */
+        Route::post('/update/{store}','StoreController@update')->name('admin.stores.update'); /* Laravel 8 */
+        Route::get('/destroy/{store}','StoreController@destroy')->name('admin.stores.destroy'); /* Laravel 8 */
+
+    });
+});
 
 
 

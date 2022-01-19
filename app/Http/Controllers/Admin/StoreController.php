@@ -9,11 +9,50 @@ class StoreController extends Controller
 {
     public function index()
 
-{
-    $stores = \App\Models\Store::all();
+    {
+        $stores = \App\Models\Store::all();
+        //$stores = \App\Models\Store::paginate(10);
 
-    return $stores;
 
+        return view('admin.stores.index', compact('stores'));
+    }
+    public function create()
+    {
+        $users = \App\Models\User::all(['id', 'name']);
+        return view('admin.stores.create', compact('users'));
+    }
+    public function store(Request $request)
+    {
+        $data = $request->all();
+
+        $user =  \App\Models\User::find($data['user']);
+        $store =  $user->store()->create($data);
+
+        return $store;
+    }
+
+    public function edit($store)
+
+    {
+        $store = \App\Models\Store::find($store);
+
+        return view('admin.stores.edit', compact('store'));
+    }
+    public function update(Request $request, $store)
+    {
+        $data = $request->all();
+
+        $store = \App\Models\Store::find($store);
+        $store->update($data);
+
+        return $store;
+    }
+
+    public function destroy($store)
+    {
+        $store = \App\Models\Store::find($store);
+        $store->delete();
+
+        return redirect('/admin/stores');
+    }
 }
-}
-

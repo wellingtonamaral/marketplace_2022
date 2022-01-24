@@ -22,6 +22,7 @@
         </tr>
         @endforeach
     </tbody>
+  
 </table>
 
 

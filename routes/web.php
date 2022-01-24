@@ -108,6 +108,18 @@ Route::prefix('admin')->namespace('App\\Http\\Controllers\\Admin')->group(functi
         Route::get('/destroy/{store}','StoreController@destroy')->name('admin.stores.destroy'); /* Laravel 8 */
 
     });
+
+    Route::prefix('products')->group(function(){
+
+        Route::get('/','ProductController@index')->name('admin.products.index'); /* Laravel 8 */
+        Route::get('/create','ProductController@create')->name('admin.products.create'); /* Laravel 8 */
+        Route::post('/product','ProductController@store')->name('admin.products.store'); /* Laravel 8 */
+        Route::get('/{product}/edit','ProductController@edit')->name('admin.products.edit'); /* Laravel 8 */
+        Route::post('/update/{product}','ProductController@update')->name('admin.products.update'); /* Laravel 8 */
+        Route::get('/destroy/{product}','ProductController@destroy')->name('admin.products.destroy'); /* Laravel 8 */
+
+    });
+
 });
 
 

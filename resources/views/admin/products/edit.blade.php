@@ -1,35 +1,39 @@
 @extends('layouts.app')
 @section('content')
-<h1>Criar Loja</h1>
+<h1>Atualizar Produto</h1>
 
-<form action="{{route('admin.stores.update', ['store' => $store->id])}}" method="POST">
-<input type="hidden" name="_token" value="{{csrf_token()}}">
-<div class="form-group">
-    <label>Nome Loja</label>
-    <input type="text" name="name" id="" class="form-control" value="{{$store->name}}">
-</div>
-<div class="form-group">
-    <label>Descrição</label>
-    <input type="text" name="description" id="" class="form-control" value="{{$store->description}}">
-</div>
-<div class="form-group">
-    <label>Telefone</label>
-    <input type="text" name="phone" id="" class="form-control" value="{{$store->phone}}">
-</div>
-<div class="form-group">
-    <label>Celular/Zap</label>
-    <input type="text" name="mobile_phone" id="" class="form-control" value="{{$store->mobile_phone}}">
-</div>
-<div class="form-group">
-    <label>Slug</label>
-    <input type="text" name="slug" id="" class="form-control" value="{{$store->slug}}">
-</div>
+<form action="{{route('admin.products.update', ['product' => $product->id])}}" method="post">
+    @csrf
 
-<div>
-    <button type="submit" class="btn btn-lg btn-success">Atualizar Loja</button>
-</div>
+
+    <div class="form-group">
+        <label for="name">Nome Produto</label>
+        <input type="text" name="name" class="form-control" value="{{$product->name}}">
+    </div>
+    <div class="form-group">
+        <label for="name">Descrição</label>
+        <input type="text" name="description" class="form-control" value="{{$product->description}}">
+    </div>
+    <div class="form-group">
+        <label for="name">Conteúdo</label>
+        <textarea name="body" id="" cols="30" rows="10" class="form-control">{{$product->body}}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="phone">Preço</label>
+        <input type="text" name="price" class="form-control" value="{{$product->price}}">
+    </div>
+
+    <div class="form-group">
+        <label for="slug">Slug</label>
+        <input type="text" name="slug" class="form-control" value="{{$product->slug}}">
+    </div>
+
+
+    <div>
+        <button type="submit" class="btn btn-lg btn-success">Atualizar Produto</button>
+    </div>
 
 </form>
-
 @endsection
 

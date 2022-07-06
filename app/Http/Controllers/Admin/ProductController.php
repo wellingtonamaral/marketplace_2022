@@ -23,6 +23,7 @@ class ProductController extends Controller
     {
         $products = \App\Models\Product::all();
 
+
         return view('admin.products.index', compact(['products']));
     }
 
@@ -102,6 +103,12 @@ class ProductController extends Controller
      */
     public function destroy($product)
     {
-        return $product;
+        $product = $this->product->find($product);
+        //$product= \App\Models\Product::find($product);
+        $product->delete();
+
+        flash("Produto excluido com sucesso")->success();
+        return redirect()->route('admin.products.index');
+
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h1>Criar Loja</h1>
+<h1>Atualizar Loja</h1>
 
 <form action="{{route('admin.stores.update', ['store' => $store->id])}}" method="POST">
 <input type="hidden" name="_token" value="{{csrf_token()}}">

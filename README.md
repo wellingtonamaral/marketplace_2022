@@ -8,6 +8,7 @@
 </p>
 
 ## Material de Estudo
+Curso da Udemy: https://www.udemy.com/course/laravel-6-na-pratica
 
 
 ## About Laravel

@@ -22,10 +22,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = \App\Models\Product::all();
+        $userStore =  auth()->user()->store;
+        $products = $userStore->products()->paginate(10);
+        $categories = \App\Models\Category::all(['name']);
 
 
-        return view('admin.products.index', compact(['products']));
+        return view('admin.products.index', compact('products','categories'));
     }
 
     /**
@@ -35,8 +37,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $stores = \App\Models\Store::all(['id','name']);
-        return view('admin.products.create', compact('stores'));
+        //$stores = \App\Models\Store::all(['id','name']);
+        $categories = \App\Models\Category::all(['id','name']);
+
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -45,12 +49,20 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
+        $images = $request->file('photos');
+        
+        foreach($images as $image){
+            print $image->store('products','public') . '<br>';
+        }
+        dd('OK');
         $data = $request->all();
+
         $store = auth()->user()->store;
         //$store = \App\Models\Store::find($data['store']);
-        $store->products()->create($data);
+       $product = $store->products()->create($data);
+       $product->categories()->sync($data['categories']);
 
         flash('Produto cadastrado com Sucesso!')->success();
         return redirect()->route('admin.products.index');
@@ -76,7 +88,9 @@ class ProductController extends Controller
     public function edit($product)
     {
         $product = $this->product->findOrFail($product);
-        return view('admin.products.edit', compact('product'));
+        $categories = \App\Models\Category::all(['id','name']);
+
+        return view('admin.products.edit', compact('product','categories'));
     }
 
     /**
@@ -91,6 +105,8 @@ class ProductController extends Controller
         $data = $request->all();
         $product = $this->product->find($product);
         $product->update($data);
+
+        $product->categories()->sync($data['categories']);
 
 
         flash('Produto Atualizado com Sucesso')->success();

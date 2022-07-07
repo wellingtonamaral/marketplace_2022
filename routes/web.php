@@ -47,6 +47,17 @@ Route::group(['middleware' => ['auth']], function(){
 
 
         });
+        Route::prefix('categories')->group(function(){
+
+            Route::get('/','CategoryController@index')->name('admin.categories.index'); /* Laravel 8 */
+            Route::get('/create','CategoryController@create')->name('admin.categories.create'); /* Laravel 8 */
+            Route::post('/category','CategoryController@store')->name('admin.categories.store'); /* Laravel 8 */
+            Route::get('/{category}/edit','CategoryController@edit')->name('admin.categories.edit'); /* Laravel 8 */
+            Route::post('/update/{category}','CategoryController@update')->name('admin.categories.update'); /* Laravel 8 */
+            Route::get('/destroy/{category}','CategoryController@destroy')->name('admin.categories.destroy'); /* Laravel 8 */
+
+
+        });
 
 
    });

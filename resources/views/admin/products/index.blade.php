@@ -18,6 +18,7 @@
                         <th>#</th>
                         <th>Nome</th>
                         <th>Preço</th>
+                         <th>Categoria</th>
                         <th>Loja</th>
                         <th class="text-center">Ações</th>
                     </tr>
@@ -28,6 +29,15 @@
                             <td>{{$product->id}}</td>
                             <td>{{$product->name}}</td>
                             <td>R$ {{number_format($product->price, 2, ',', '.')}} </td>
+                            <td>
+                       @if ($product->categories->isEmpty())
+                           Sem Categoria
+                        @else
+                            @foreach ($product->categories as $category)
+                                        {{$category->name}}
+                            @endforeach
+                        @endif
+                    </td>
                             <td>{{$product->store->name}}</td>
                             <td width="15%">
                                 <div class="btn-group">

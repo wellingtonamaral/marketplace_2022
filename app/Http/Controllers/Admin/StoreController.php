@@ -8,25 +8,37 @@ use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('user.has.store')->only(['create','store']);
+    }
     public function index()
 
     {
-        $stores = \App\Models\Store::all();
-        //$stores = \App\Models\Store::paginate(10);
+        $store = auth()->user()->store;
+        //$stores = \App\Models\Store::all();
+        /*
+        $stores = \App\Models\Store::paginate(10);
+        {{$stores->links()}}  no final da pagina
+        */
 
 
-        return view('admin.stores.index', compact('stores'));
+        return view('admin.stores.index', compact('store'));
     }
     public function create()
     {
+
+
         $users = \App\Models\User::all(['id', 'name']);
         return view('admin.stores.create', compact('users'));
     }
     public function store(StoreRequest $request)
     {
+
+
         $data = $request->all();
         $user=  auth()->user();
-        $user =  \App\Models\User::find($data['user']);
+        //$user =  \App\Models\User::find($data['user']);
 
 
         $store = $user->store()->create($data);

@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function(){
             Route::get('/destroy/{product}','ProductController@destroy')->name('admin.products.destroy'); /* Laravel 8 */
 
 
+
         });
         Route::prefix('categories')->group(function(){
 
@@ -58,20 +59,14 @@ Route::group(['middleware' => ['auth']], function(){
 
 
         });
-
-
+        Route::prefix('photo')->group(function(){
+        //Route::post('photos/remove', 'ProductPhotoController@removePhoto')->name('photo.remove');
+        Route::post('photos/remove', 'ProductPhotoController@removePhoto')->name('admin.photo.remove');
+    });
    });
 
 
 });
-
-
-
-//Route::post
-//Route::put
-//Route::patch
-//Route::delete
-//Route::options
 
 
 Auth::routes();

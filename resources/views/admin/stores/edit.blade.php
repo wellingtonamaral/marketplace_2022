@@ -2,7 +2,7 @@
 @section('content')
 <h1>Atualizar Loja</h1>
 
-<form action="{{route('admin.stores.update', ['store' => $store->id])}}" method="POST">
+<form action="{{route('admin.stores.update', ['store' => $store->id])}}" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="_token" value="{{csrf_token()}}">
 <div class="form-group">
     <label>Nome Loja</label>
@@ -20,6 +20,11 @@
     <label>Celular/Zap</label>
     <input type="text" name="mobile_phone" id="" class="form-control" value="{{$store->mobile_phone}}">
 </div>
+<div class="form-group">
+            <label>Fotos do Produto</label>
+            <input type="file" name="logo" class="form-control">
+
+        </div>
 <div class="form-group">
     <label>Slug</label>
     <input type="text" name="slug" id="" class="form-control" value="{{$store->slug}}">

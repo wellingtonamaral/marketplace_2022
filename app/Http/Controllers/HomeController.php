@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');// Verifica se usuário está logado ou não
-    }
+    private $product;
+    public function __construct(Product $product)
 
+    {
+        $this->product = $product;
+    }
     /**
      * Show the application dashboard.
      *
@@ -23,6 +20,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        //return view('home');
+        $products = $this->product->limit(8)->orderBy('id','DESC')->get();
+
+        return view('welcome', compact('products'));
     }
 }

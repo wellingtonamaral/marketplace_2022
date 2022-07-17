@@ -28,10 +28,7 @@
             <input type="file" name="logo" class="form-control">
 
         </div>
-<div class="form-group">
-    <label>Slug</label>
-    <input type="text" name="slug" id="" class="form-control" value="{{$store->slug}}">
-</div>
+
 
 <div>
     <button type="submit" class="btn btn-lg btn-success">Atualizar Loja</button>

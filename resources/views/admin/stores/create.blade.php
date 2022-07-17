@@ -51,7 +51,7 @@
 </div>
 <div class="form-group">
             <label>Fotos do Produto</label>
-            <input type="file" name="logo" class="form-control"
+            <input type="file" name="logo" class="form-control">
 
         </div>
 <div class="form-group">

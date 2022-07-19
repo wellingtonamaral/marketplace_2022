@@ -19,6 +19,7 @@ Route::get('/', function () {
 */
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/product/{slug}', [App\Http\Controllers\HomeController::class, 'single'])->name('product.single');
 
 
 Route::get('/model', function () {

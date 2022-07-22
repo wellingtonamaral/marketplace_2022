@@ -22,6 +22,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/product/{slug}', [App\Http\Controllers\HomeController::class, 'single'])->name('product.single');
 
 
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
+Route::post('/cart', [App\Http\Controllers\CartController::class, 'add'])->name('cart.add');
+Route::get('/remove/{slug}', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+Route::get('/cancel', [App\Http\Controllers\CartController::class, 'cancel'])->name('cart.cancel');
+
 Route::get('/model', function () {
 
 });

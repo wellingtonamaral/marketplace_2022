@@ -43,9 +43,9 @@
         </table>
         <hr>
 
-            <a href="#" class="checkout ">Concluir Compra</a>
+            <a href="{{route('checkout.index')}}" class="checkout">Concluir Compra</a>
             <a href="{{route('cart.cancel')}}" class="cancelar">Cancelar Compra</a>
-        
+
         @else
             <div class="alert alert-warning">Carrinho vazio...</div>
 

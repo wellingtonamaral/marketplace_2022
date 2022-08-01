@@ -21,6 +21,10 @@ Route::get('/', function () {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/product/{slug}', [App\Http\Controllers\HomeController::class, 'single'])->name('product.single');
 
+Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout.index');
+
+
+
 
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [App\Http\Controllers\CartController::class, 'add'])->name('cart.add');

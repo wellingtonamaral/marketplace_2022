@@ -1,160 +1,182 @@
 @extends('layouts.front')
 
 @section('content')
-<style>
 
-#right {
-  position: relative;
-  width: calc(60% - 40px);
-  height: 100%;
-  top: 20;
-  left: 10%;
-  display: flex;
-  flex-flow: column nowrap;
-  padding-left: 20px;
-}
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Dados para Pagamento</h2>
+                    <hr>
+                </div>
+            </div>
+            <form action="" method="post">
 
-#right form {
-  display: flex;
-  flex-flow: column nowrap;
-  width: 100%;
-}
+                <div class="row">
+                    <div class="col-md-6  form-group">
+                        <label>Nome no cartão </label>
+                        <input type="text" class="form-control" name="card_name">
+                    </div>
+                </div>
 
-#right form input,
-#right form select {
-  -moz-appearance: none;
-  /* Firefox */
-  -webkit-appearance: none;
-  /* Safari and Chrome */
-  appearance: none;
-  border: none;
-  border-bottom: 1.5px solid #ccc;
-  padding: 5px;
-  margin-top: 2.5px;
-  position: relative;
-}
+                <div class="row">
+                    <div class="col-md-6  form-group">
+                        <label>Número do cartão </label>
+                        <input type="text" class="form-control" name="card_number">
+                        <input type="hidden" name="card_brand">
+                    </div>
+                    <div class="col-md-3 form-group pt-md-4 mt-2">
+                        <span class="brand"></span>
+                    </div>
+                </div>
 
-#right form .form-field {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  margin-bottom: 12.5px;
-}
-
-#right form #date-val {
-  display: flex;
-  justify-content: space-between;
-}
-
-#right form #date-val select {
-  width: 45%;
-}
-
-#right form button[type=submit] {
-  background: linear-gradient(135deg, #4183d7 0%, #66cc99 100%);
-  padding: 5px;
-  border: none;
-  border-radius: 50px;
-  color: white;
-  font-weight: 400;
-  font-size: 12pt;
-  margin-top: 10px;
-}
-
-#right form button[type=submit]:hover {
-  background: transparent;
-  box-shadow: 0 0 0 3px #4183d7;
-  color: #4183d7;
-}
-
-
-</style>
-
-<div class="container">
-
-<section id="right">
-		<h1>Cartão de Credito</h1>
-		<form action="#">
-			<div id="form-card" class="form-field">
-				<label for="cc-number">Número do cartão:</label>
-				<input id="cc-number" maxlength="19" name="card_number" placeholder="1111 2222 3333 4444" required>
-			</div>
-
-			<div id="form-date" class="form-field">
-				<label for="expiry-month">Data de Expiração</label>
-				<div id="date-val">
-					<select id="expiry-month" required name="card_month">
-															<option id="trans-label_month" value="" default="default" selected="selected">Mês</option>
-															<option value="1">01</option>
-															<option value="2">02</option>
-															<option value="3">03</option>
-															<option value="4">04</option>
-															<option value="5">05</option>
-															<option value="6">06</option>
-															<option value="7">07</option>
-															<option value="8">08</option>
-															<option value="9">09</option>
-															<option value="10">10</option>
-															<option value="11">11</option>
-															<option value="12">12</option>
-													</select>
-					<select id="expiry-year" required name="card_year">
-															<option id="trans-label_year" value="" default="" selected="selected">Ano</option>
-
-                                                    <option value="2022">22</option>
-                                                    <option value="2023">23</option>
-                                                    <option value="2024">24</option>
-                                                    <option value="2025">25</option>
-                                                    <option value="2026">26</option>
-                                                    <option value="2027">27</option>
-                                                    <option value="2028">28</option>
-                                                    <option value="2029">29</option>
-                                                    <option value="2030">30</option>
-                                                    <option value="2031">31</option>
-                                                    <option value="2032">32</option>
-
-                                                </select>
-				</div>
-			</div>
-
-			<div id="form-sec-code" class="form-field">
-				<label for="sec-code">Código de Segurança:</label>
-				<input type="password" maxlength="3" name="card_cvv" placeholder="123" required>
-			</div>
-
-			<button type="submit">Efetuar Pagamento</button>
-		</form>
-	</section>
-</div>
-
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Mês de expiração</label>
+                        <input type="text" class="form-control" name="card_month">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Ano de expiração</label>
+                        <input type="text" class="form-control" name="card_year">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        <label>Código de segurança</label>
+                        <input type="text" class="form-control" name="card_cvv">
+                    </div>
+                    <div class="col-md-8 installments form-group"></div>
+                </div>
+                <button class="proccessCheckout btn btn-success btn-lg">Confirmar Pagamento</button>
+            </form>
+        </div>
+    </div>
 @endsection
+
 @section('scripts')
-<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-    <script src="{{asset('assets/js/jquery.ajax.js')}}"></script>
-    <script>
-        const sessionId = '{{session()->get('pagseguro_session_code')}}';
-        PagSeguroDirectPayment.setSessionId(sessionId);
+<script
+        src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+        <script>
+
+         const sessionId = '{{session()->get('pagseguro_session_code')}}';
+         PagSeguroDirectPayment.setSessionId(sessionId);
+        const csrf = '{{csrf_token()}}';
     </script>
 
     <script>
+
+        let amountTransaction = '{{$cartItems}}';
         let cardNumber = document.querySelector('input[name=card_number]');
-        cardNumber.addEventListener('keyup', function(){
-            if(cardNumber.value.length >= 6 ){
+        let spanBrand = document.querySelector('span.brand');
+        cardNumber.addEventListener('keyup',function(){
+            if(cardNumber.value.length >= 6) {
                 PagSeguroDirectPayment.getBrand({
-                    cardBin: cardNumber.value.substr(0, 6),
-                    success: function(res){
-                        console.log(res);
+                    cardBin:cardNumber.value.substr(0,6),
+                    success: function(res) {
+                        let imgFlag= `<img src="https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${res.brand.name}.png">`;
+                        spanBrand.innerHTML = imgFlag;
+                        document.querySelector('input[name=card_brand]').value = res.brand.name;
+                        getInstallments(amountTransaction, res.brand.name);
                     },
-                    error: function(err){
+                    error: function(err) {
                         console.log(err);
                     },
-                    complete: function(res){
-                        console.log('Complete: '+ res);
+                    complete: function(res) {
+                        console.log('Complete:',res);
                     }
                 });
             }
         });
+        //criando função para buscar as opçoes de parcelamento
+        function getInstallments(amount, brand){
+            PagSeguroDirectPayment.getInstallments({
+                amount: amount,
+                brand: brand,
+                maxInstallmentNoInterest: 0, //quantidade de parcelas sem juros aceita
+                success: function(res){
+                    let selectInstallments = drawSelectInstallments(res.installments[brand]);
+                    document.querySelector('div.installments').innerHTML = selectInstallments;
+                },
+                error: function(err){
+
+                },
+                complete: function(res){
+
+                }
+            })
+        }
+        let submitButton = document.querySelector('button.proccessCheckout');
+        submitButton.addEventListener('click',function(event){
+                event.preventDefault();
+                PagSeguroDirectPayment.createCardToken({
+                cardNumber: document.querySelector('input[name=card_number').value, // Número do cartão de crédito
+                brand:      document.querySelector('input[name=card_brand]').value, // Bandeira do cartão
+                cvv:        document.querySelector('input[name=card_cvv]').value, // CVV do cartão
+                expirationMonth: document.querySelector('input[name=card_month').value, // Mês da expiração do cartão
+                expirationYear:  document.querySelector('input[name=card_year').value, // Ano da expiração do cartão, é necessário os 4 dígitos.
+                success: function(res) {
+                        console.log(res);
+                        proccessPayment(res.card.token);
+                }
+            });
+        });
+
+        //Crio uma variável getHash que vai conter o valor da função
+        //que substitui a função getSenderHash, sendo esta "onSenderHashReady".
+        let getHash = PagSeguroDirectPayment.onSenderHashReady(function(response){
+                if(response.status == 'error') {
+                    console.log(response.message);
+                    return false;
+                }
+                var hash = response.senderHash; //Hash estará disponível nesta variável.
+            });
+
+
+        // PARA USAR DPOIS, VER LINK QUE TROUXE A PESSOA ATÉ O SITE print (request()->headers->get('referer'))
+
+        //AJAX INTERESSANTE PARA A PARTE DE QRCODE
+        //NAO PRECISA ATUALIZAR TELA, FAZ REQUISIÇÃO NO CONTROLLER ATRAVES DO $.AJAX URL, E O CONTROLLER RETORNA ALGO
+        function proccessPayment(token){
+            let data = {
+                card_token: token,
+                hash: getHash,
+                installment: document.querySelector('#select.select_installments').value,
+                _token: '{{csrf_token()}}'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '{{route("checkout.proccess")}}',
+                data: data,
+                dataType: 'json',
+                success: function(res){
+                    console.log(res);
+                },
+                error: function(err){
+
+                },
+                complete: function(res){
+
+                }
+            });
+        }
+        function drawSelectInstallments(installments) { //criando o select para usuario escolher quantidade de parcelas
+            let select = '<label>Opções de Parcelamento:</label>';
+
+            select += '<select class="form-control select_installments">';
+
+            for(let l of installments) {
+                select += `<option value="${l.quantity}|${l.installmentAmount}">${l.quantity}x de ${l.installmentAmount} - Total fica ${l.totalAmount}</option>`;
+            }
+
+
+            select += '</select>';
+
+            return select;
+        }
     </script>
 @endsection
-
-

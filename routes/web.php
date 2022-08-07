@@ -22,6 +22,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/product/{slug}', [App\Http\Controllers\HomeController::class, 'single'])->name('product.single');
 
 Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/proccess', [App\Http\Controllers\CheckoutController::class, 'proccess'])->name('checkout.proccess');
+
+
 
 
 
